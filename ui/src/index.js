@@ -3,11 +3,40 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-
+import { createBrowserRouter,RouterProvider } from 'react-router-dom';
+import Home from './components/home';
+import Login from './components/login';
+import Signup from './components/signup';
+import Profile from './components/profile';
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
+const routes = createBrowserRouter([
+  {
+    path: '/',
+    element: <App />, // App is the layout component
+    children: [
+      {
+        path: '/',
+        element: <Home />,
+      },
+      {
+        path: '/login',
+        element: <Login />,
+      },
+      {
+        path: '/signup',
+        element: <Signup />,
+      },
+      {
+        path: '/profile',
+        element: <Profile />,
+      },
+    ],
+  },
+]);
 root.render(
   <React.StrictMode>
-    <App />
+    <RouterProvider router={routes}/>
   </React.StrictMode>
 );
 

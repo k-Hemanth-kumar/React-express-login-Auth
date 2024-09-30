@@ -2,8 +2,8 @@ import { useState } from 'react';
 import { registerAuth } from '../services/authService';
 
 export default function Signup(){
-    const [credentials, setCredentials] = useState({});
-    const [message, setMessage] = useState({});
+    const [credentials, setCredentials] = useState({username:"",email:"",password:""});
+    const [message, setMessage] = useState({success:false});
 
     const handleInputChange = (event) => {
         setCredentials((prevCredentials) => ({
@@ -15,7 +15,7 @@ export default function Signup(){
     const handleSignupSubmit = (event) => {
         event.preventDefault();
         const form = event.target;
-        if (form.checkValidity() === false) {
+        if (form.checkValidity() === false || credentials.password.length<6) {
             console.log('Form is invalid');
             event.stopPropagation();
         } else {
@@ -29,17 +29,18 @@ export default function Signup(){
     };
 
     return (
-        <div className="-flex justify-content-center align-items-center min-vh-100">
+        <div className="position-fixed top-50 start-50 translate-middle" style={{ zIndex: 1050 }}>
+        <div className="d-flex justify-content-center align-items-center min-vh-100">
             <div className="col-12">
                 <div className="card card-container mx-auto" style={{width:'350px'}}>
                     <img
                         src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
                         alt="profile-img"
-                        className="profile-img-card mx-auto mt-5"
+                        className="profile-img-card mx-auto mt-4"
                         style={{ width: '100px', height: '100px', borderRadius: '50%' }}
                     />
                     <div className="card-body">
-                        <form onSubmit={handleSignupSubmit} id="signup-validation" noValidate>
+                        {!message.success?<form onSubmit={handleSignupSubmit} id="signup-validation" noValidate>
                             <div className="form-group mb-3">
                                 <label htmlFor="username" className="form-label">Username</label>
                                 <input
@@ -57,7 +58,7 @@ export default function Signup(){
                                     Please enter your Username.
                                 </div>
                                 {!message.success && message.username && (
-                                    <div className="invalid-feedback">
+                                    <div className="alert alert-danger" role='alert' style={{'--bs-alert-padding':'.3rem'}}>
                                         {message.username}
                                     </div>
                                 )}
@@ -79,7 +80,7 @@ export default function Signup(){
                                     Please enter your email.
                                 </div>
                                 {!message.success && message.email && (
-                                    <div className="invalid-feedback">
+                                    <div className="alert alert-danger" role='alert' style={{'--bs-alert-padding':'.3rem'}}>
                                         {message.email}
                                     </div>
                                 )}
@@ -95,13 +96,15 @@ export default function Signup(){
                                     value={credentials.password || ''} // Avoid uncontrolled input warning
                                     autoComplete="off"
                                     onChange={handleInputChange}
+                                    max={6}
                                     required
                                 />
+                                
                                 <div className="invalid-feedback">
-                                    Please provide a password.
+                                    {`Please enter a password >6 characters.`}
                                 </div>
                                 {!message.success && message.password && (
-                                    <div className="invalid-feedback">
+                                    <div className="alert alert-danger" role='alert' style={{'--bs-alert-padding':'.3rem'}}>
                                         {message.password}
                                     </div>
                                 )}
@@ -111,11 +114,12 @@ export default function Signup(){
                                     SignUp
                                 </button>
                             </div>
-                        </form>
+                        </form>:<p className='text-bg-success p-3 rounded-4'>User Registered successfully</p>}
                     </div>
                 </div>
             </div>
         </div>
+    </div>
     );
 };
 
