@@ -18,11 +18,11 @@ app.use(express.static(path.join(__dirname, 'ui/src')));
 
 // Route to serve the index.html file (assuming it's inside src)
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'ui/src', 'index.js')); // Change this to index.html
+  //res.sendFile(path.join(__dirname, 'ui/src', 'index.js')); // Change this to index.html
 });
 
 app.post('/auth/login',(req,res)=>{
-  console.log(req.body);
+  console.log(req.body,req.url,req.baseUrl);
 })
 // Catch-all route to serve any other file
 

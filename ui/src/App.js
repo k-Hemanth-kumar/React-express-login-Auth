@@ -1,4 +1,7 @@
 import "bootstrap/dist/css/bootstrap.min.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+
 import './App.css';
 import { Outlet } from 'react-router-dom';
 import { NavLink, Link } from "react-router-dom";
@@ -36,7 +39,7 @@ function App() {
 
   return (
     <div className="App">
-      <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+      <nav className="navbar navbar-expand-lg navbar-dark bg-dark" id="">
         <div className="container-fluid">
           {/* Left-aligned Brand Title */}
           <Link to="/" className="navbar-brand">
@@ -59,7 +62,7 @@ function App() {
           {/* Navbar Links */}
           <div className="collapse navbar-collapse" id="navbarNav">
             {/* Center-aligned Home and User */}
-            <ul className="navbar-nav mx-auto">
+            <ul className="navbar-nav">
               <li className="nav-item">
                 <NavLink className="nav-link" to="/">
                   Home
@@ -72,38 +75,31 @@ function App() {
                   </NavLink>
                 </li>
               )}
-            </ul>
 
-            {/* Right-aligned Login/Signup/Logout */}
-            <ul className="navbar-nav ms-auto">
+              
               {userInfo.currentUser ? (
                 <>
                   <li className="nav-item">
-                    <Link to="/profile" className="nav-link">
-                      {userInfo.currentUser.username}
-                    </Link>
+                    <Link to="/profile" className="nav-link">{userInfo.currentUser.username}</Link>
                   </li>
                   <li className="nav-item">
-                    <button className="nav-link btn btn-link" onClick={logOut}>
-                      Logout
-                    </button>
+                    <button className="nav-link btn btn-link" onClick={logOut}>Logout</button>
                   </li>
                 </>
               ) : (
                 <>
                   <li className="nav-item">
-                    <NavLink className="nav-link" to="/login">
-                      Login
-                    </NavLink>
+                    <NavLink className="nav-link" to="/login">Login</NavLink>
                   </li>
                   <li className="nav-item">
-                    <NavLink className="nav-link" to="/signup">
-                      Signup
-                    </NavLink>
+                    <NavLink className="nav-link" to="/signup">Signup</NavLink>
                   </li>
                 </>
               )}
             </ul>
+
+            {/* Right-aligned Login/Signup/Logout */}
+            
           </div>
         </div>
       </nav>
