@@ -7,6 +7,7 @@ import { Outlet } from 'react-router-dom';
 import { NavLink, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getCurrentUser, logOutAuth } from "./services/authService";
+//import ErrorBoundary from "./components/errorboundary";
 
 function App() {
   const [userInfo, setUserInfo] = useState({
@@ -105,7 +106,9 @@ function App() {
       </nav>
 
       {/* Outlet to render the current route's component */}
+      
       <Outlet />
+      
     </div>
   );
 }

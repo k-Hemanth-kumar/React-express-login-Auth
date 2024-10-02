@@ -1,12 +1,19 @@
 import Axios from "axios";
 const API_URL = 'http://localhost:5000/auth/';
 
-const LoginAuth = async (username, password) => {
+const LoginAuth = async (username, password,redirect) => {
     try {
+        const url = new URL(`${API_URL}login`);
+        url.searchParams.append('redirect', redirect);
+        url.searchParams.append('name', username); // Add name parameter
+        url.searchParams.append('username', username);
         let res = await Axios({
           method: 'post',
-          url: `${API_URL}login`,
-          data: JSON.stringify({username,password})
+          url: url,
+          data: JSON.stringify({username,password}),
+          headers:{
+            'Content-Type':'application/json',
+          }
         });
       
         return res.data;

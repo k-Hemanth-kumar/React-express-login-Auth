@@ -3,17 +3,20 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { createBrowserRouter,RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Home from './components/home';
 import Login from './components/login';
 import Signup from './components/signup';
 import Profile from './components/profile';
+import ErrorBoundary from './components/errorboundary';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 const routes = createBrowserRouter([
   {
     path: '/',
-    element: <App />, // App is the layout component
+    element: (
+      <ErrorBoundary><App /></ErrorBoundary>
+    ), // App is the layout component
     children: [
       {
         path: '/',
@@ -36,7 +39,7 @@ const routes = createBrowserRouter([
 ]);
 root.render(
   <React.StrictMode>
-    <RouterProvider router={routes}/>
+    <RouterProvider router={routes} />
   </React.StrictMode>
 );
 
