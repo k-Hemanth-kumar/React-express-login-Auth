@@ -70,6 +70,24 @@ module.exports.signInController=(req,res)=>{
             return res.status(404).send({ message: "User Not found." });
           }
           var passwordISvalid=bcrypt.compareSync(req.body.password,user.password);
-          
+          if(!passwordISvalid){
+            res.status(401).send({accessToken:null,message:'Password is not valid'});
+            return;
+          }
+          const token=jwt.sign({id:user.id},config.secret,{
+            algorithm:'HS256',expiresIn:86400,allowInsecureKeySizes:true
+          });
+          var authorities=[];
+          for(let i=0;i<user.roles.length;i++){
+            authorities.push('ROLE'+user.roles[i].name.toUppperCase())
+          }
+          res.status(200).send({
+            id:user._id,
+            accessToken:token,
+            username:user.username,
+            email:user.email,
+            roles:authorities,
+          });
+          return;
     });
 }
