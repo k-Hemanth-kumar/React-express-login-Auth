@@ -60,7 +60,7 @@ app.get('/', (req, res) => {
  });
  
  app.post('/auth/login',Authcontroller.signInController)
- app.post('/auth/signup',[verifySignUp.checkDuplicateUsernameorEmail,verifySignUp.checkRoleExisted],Authcontroller.signUpController);
+ app.post('/auth/signup',[verifySignUp.checkDuplicateUsernameOrEmail,verifySignUp.checkRoleExisted],Authcontroller.signUpController);
 
  app.get('/test/all',Usercontroller.allAcess);
  app.get('/test/user',[authJwt.verifyToken],Usercontroller.userBoard);
